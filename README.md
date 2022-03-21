@@ -11,4 +11,7 @@ Antes de rodar o sistema, crie o Banco de dados usando o arquivo de importação
 - Zerar pontuação (tabela);
 - Executar rodada individual(função ainda em desenvolvimento, não contabiliza título);
 - [EM BREVE] Artilharia;
+
+Print do sistema:
+
 ![image](https://user-images.githubusercontent.com/55469850/159351166-6f8f74c7-4adb-4318-8d2f-8cd4082c9fa1.png)
