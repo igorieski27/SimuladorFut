@@ -125,11 +125,6 @@
 	}
 #Essa função faz a rodada acontecer.
 	function Rodada(){
-		
-
-
-
-		
 		$a=0;
 		$b=1;
 		$lista = range(1, 20);
@@ -144,14 +139,50 @@
 		}
 		
 	}
-#Essa função renderiza a tabela 
+	
+#Função rodada sem printar os resultados (campeonato completo)
+	function Rodada2(){
+		$a=0;
+		$b=1;
+		$lista = range(1, 20);
+		shuffle($lista);
+		$cont=0;
+		while ($cont<10){
+		  $res = Executar($lista[$a], $lista[$b]);
+		  $a = $a + 2;
+		  $b = $b + 2;
+		  $cont = $cont+1;
+		}
+	}	
+#Essa função renderiza a tabela geral
 	function Tabela ($times){
 		$cont = 1;
-		echo '<table border="1" align=left > <tr> <td> rank </td> <td> nome </td> <td> pontos </td> </tr>';
+		echo '<table border="1" align=left class="tabela"> <tr> <td> # </td> <td> Time </td> <td> Pontos </td> </tr>';
 		foreach ($times as $t){
 		   echo ' <td>'.$cont.'</td> ';
 		   echo ' <td>'.$t['nome'].'</td>';
-		   echo ' <td>'.$t['pontos'].'</td>';
+		   echo ' <td class="pontos">'.$t['pontos'].'</td>';
+		   echo ' <tr>';
+		   $cont=$cont+1;
+		}
+	}
+#tabela de titulos 	
+	function TabelaCamp (){
+		$query =  "SELECT nome, titulos FROM times where titulos>0 ORDER BY titulos DESC;";
+		$result = DBExecute($query);
+
+		if(!mysqli_num_rows($result)) {
+			return false;
+		}else{
+			while ($res = mysqli_fetch_assoc($result)){
+				$data[] = $res;
+			}
+		}
+		$cont = 1;
+		echo '<table border="1" align=left class="tabelat"> <tr> <td> Time </td> <td> Titulos </td> </tr>';
+		foreach ($data as $t){
+		   echo ' <td>'.$t['nome'].'</td>';
+		   echo ' <td>'.$t['titulos'].'</td>';
 		   echo ' <tr>';
 		   $cont=$cont+1;
 		}
@@ -182,7 +213,39 @@
 		$query = " UPDATE times set pontos = 0";
 		DBExecute($query);
 	}
+#define o campeão
+	function getCampeao(){
+		$query =  "SELECT nome FROM times WHERE pontos=(SELECT max(pontos) from times) ;";
+		$result = DBExecute($query);
+		if(!mysqli_num_rows($result)) {
+			return false;
+		}else{
+			while ($res = mysqli_fetch_assoc($result)){
+				$data[] = $res;
+			}
+		}
+		foreach ($data as $d){
+			$nomec = $d['nome'];
+		}
+		$query =  "SELECT idTime FROM times WHERE nome='{$nomec}';";
+		$result2 = DBExecute($query);
+		while ($res2 = mysqli_fetch_assoc($result2)){
+				$data2[] = $res2;
+				foreach ($data2 as $d2){
+					$j = $d2['idTime'];
+				}
+				$jint = (int)$j;
+		}
+		$query =  "UPDATE times set titulos = titulos+1 where idTime={$jint}";
+		DBExecute($query);
+		
+		echo $nomec.' CAMPEÃO!';
+		return $nomec;
+
+		
+	}
 	
+# Teste de campanha, ainda nao usei
 	function DBAlteraCampanha($values, $id){
 		$query =  " UPDATE times set campanha = '{$values}' where idTime={$id}";
 		DBExecute($query);	

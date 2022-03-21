@@ -1,0 +1,40 @@
+body{
+	background-image: url("https://media.istockphoto.com/photos/grass-field-picture-id474672896?b=1&k=20&m=474672896&s=170667a&w=0&h=0Nszdrn_cE0kGbSc2VQypsTiNrs9MlrwuN0k9ZfWmF8=");
+	background-size:60%;
+}
+.tabela{
+	background-image: url("C:\xampp\htdocs\img\campo.jpeg");
+	width:40%;
+	font-family: Arial, Helvetica, sans-serif;
+	color:white;
+	background-color: #05692f;
+}
+.tabelat{
+	color:white;
+	background-color: #056928;
+	float:center;
+	position:relative;
+}
+td {
+	text-align:center;
+}
+.btn-group .button {
+  background-color: #05692f; /* Green */
+  border: 1px solid green;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group .button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+  background-color: #3e8e41;
+}
